@@ -3,6 +3,7 @@ import 'package:connectivity/connectivity.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hobby_mates/utils/MaskedTextBox.dart';
+import 'package:hobby_mates/utils/utils.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 class StartScreen extends StatefulWidget {
@@ -58,6 +59,7 @@ class _StartScreenState extends State<StartScreen> {
       uidBool = true;
       if(user != null){
         uid = user.uid;
+        Uid.uid = user.uid;
       }
     });
     super.initState();
@@ -101,7 +103,7 @@ class _StartScreenState extends State<StartScreen> {
                         if(uid == null && uidBool){
                           Navigator.pushNamedAndRemoveUntil(context, '/phone', (Route<dynamic> r) =>false);
                         }else if(uid != null){
-                          Navigator.pushNamedAndRemoveUntil(context, '/chat', (Route<dynamic> r) =>false);
+                          Navigator.pushNamedAndRemoveUntil(context, '/hobby', (Route<dynamic> r) =>false);
                         }
                       },
                       color: Colors.white,

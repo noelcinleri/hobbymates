@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:hobby_mates/utils/utils.dart';
 
 class FirestoreData {
   String userName;
@@ -38,6 +39,12 @@ class FirestoreMessage {
   }
 }
 
+class FireStoreHobby {
+  final String hobbyName;
+  final int id;
+  FireStoreHobby(this.hobbyName, this.id);
+}
+
 class Data {
   static Firestore db = Firestore.instance;
   CollectionReference notesCollectionRef = db.collection('users');
@@ -68,7 +75,7 @@ class Data {
   }
 
   static createUser(String id, String userName, String adSoyad, String mail,
-      String numara,yas,rooms) async {
+      String numara, yas, rooms) async {
     final TransactionHandler createTransaction = (Transaction tx) async {
       final DocumentSnapshot ds =
           await tx.get(db.collection('users').document(id));
@@ -96,6 +103,42 @@ class Data {
 
   static updateUser(String uid, String dataTitle, newData) async {
     await db.collection('users').document(uid).updateData({dataTitle: newData});
+  }
+
+  static getHobby() async {
+    List<FireStoreHobby> hobbies = List();
+    await db.collection('hobbies').getDocuments().then((snap) {
+      var documents = snap.documents;
+      for (DocumentSnapshot document in documents) {
+        print('name> ${hobbies.length}');
+        hobbies
+            .add(FireStoreHobby(document.documentID, document.data['hobi_ID']));
+      }
+    });
+  }
+
+  static setHobbyMaters(hobbyName) async {
+    db.collection('hobbies').document(hobbyName).get().then((e) {
+      var a;
+      int id = e.data['hobi_ID'];
+      if (e.data['hobbyMates'] != null) {
+        List ad = List();
+        if (e.data['hobbyMates'].contains(Uid.uid)) {
+          ad = e.data['hobbyMates'];
+          var i = e.data['hobbyMates'].indexOf(Uid.uid);
+          ad[i] = '';
+          a = ad;
+        } else {
+          a = e.data['hobbyMates'] + [Uid.uid];
+        }
+      } else {
+        a = [Uid.uid];
+      }
+      db
+          .collection('hobbies')
+          .document(hobbyName)
+          .setData({'hobbyMates': a, 'hobi_ID': id});
+    });
   }
 
   static FirestoreData getDataByUid(String uid) {

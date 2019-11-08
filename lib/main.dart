@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hobby_mates/ui/StartScreen.dart';
 import 'package:hobby_mates/ui/chats.dart';
 import 'package:hobby_mates/ui/conversation.dart';
+import 'package:hobby_mates/ui/hobbySelect.dart';
 import 'package:hobby_mates/ui/phoneVerificationCode.dart';
 import 'package:hobby_mates/ui/phoneverification.dart';
 import 'package:hobby_mates/ui/profile.dart';
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
         '/code':(context)=>PhoneCodeEnter(),
         '/profil':(context)=>ProfilePage(),
         '/chat':(context)=>Conversation(),
+        '/hobby':(context)=>HobbySelect(),
       },
       // home: PhoneVerification(),
     );
