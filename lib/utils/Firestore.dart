@@ -42,7 +42,8 @@ class FirestoreMessage {
 class FireStoreHobby {
   final String hobbyName;
   final int id;
-  FireStoreHobby(this.hobbyName, this.id);
+  String url;
+  FireStoreHobby(this.hobbyName, this.id, this.url);
 }
 
 class Data {
@@ -86,10 +87,10 @@ class Data {
       dataMap['mail'] = mail;
       dataMap['yas'] = yas;
       dataMap['rooms'] = rooms;
+      dataMap['hobbies'] = [];
       dataMap['numara'] = numara;
 
       await tx.set(ds.reference, dataMap);
-
       return dataMap;
     };
 
@@ -111,8 +112,8 @@ class Data {
       var documents = snap.documents;
       for (DocumentSnapshot document in documents) {
         print('name> ${hobbies.length}');
-        hobbies
-            .add(FireStoreHobby(document.documentID, document.data['hobi_ID']));
+        hobbies.add(FireStoreHobby(document.documentID,
+            document.data['hobi_ID'], document.data['imgUrl']));
       }
     });
   }
@@ -124,20 +125,27 @@ class Data {
       if (e.data['hobbyMates'] != null) {
         List ad = List();
         if (e.data['hobbyMates'].contains(Uid.uid)) {
-          ad = e.data['hobbyMates'];
-          var i = e.data['hobbyMates'].indexOf(Uid.uid);
-          ad[i] = '';
-          a = ad;
+          a = e.data['hobbyMates'];
         } else {
           a = e.data['hobbyMates'] + [Uid.uid];
         }
       } else {
-        a = [Uid.uid];
+        a = e.data['hobbyMates'] + [Uid.uid];
       }
+      db.collection('users').document(Uid.uid).get().then((doc) {
+        print('s**');
+        db.collection('users').document(Uid.uid).setData({
+          // 'hobbies': doc.data['hobbies'].length > 0
+          //     ? doc.data['hobbies'] + [hobbyName]
+          //     : [hobbyName],
+            'hobbies':doc.data['hobbies'] ?? []+ [hobbyName]
+        }, merge: true);
+      });
+        print('s*');
       db
           .collection('hobbies')
           .document(hobbyName)
-          .setData({'hobbyMates': a, 'hobi_ID': id});
+          .setData({'hobbyMates': a}, merge: true);
     });
   }
 

@@ -22,7 +22,8 @@ class _HobbySelectState extends State<HobbySelect>
         .then((query) {
       List<DocumentSnapshot> documents = query.documents;
       for (DocumentSnapshot document in documents) {
-        var n = FireStoreHobby(document.documentID, document.data['hobi_ID']);
+        var n = FireStoreHobby(document.documentID, document.data['hobi_ID'],
+            document.data['imgUrl']);
         hobbies.add(n);
         UserHobbies.selectedList.add(false);
       }
@@ -94,18 +95,47 @@ class _HobbySelectState extends State<HobbySelect>
                                           MediaQuery.of(context).size.width *
                                                   3 /
                                                   7 -
-                                              10,
+                                              25,
                                       decoration: BoxDecoration(
-                                          color:
-                                          UserHobbies.selectedList[index]
-                                              ? Color.fromARGB(255, 161, 87, 226).withAlpha(255)
-                                              : Color.fromARGB(255, 161, 87, 226).withAlpha(230),
+                                          image: DecorationImage(
+                                            fit: BoxFit.cover,
+                                            image: hobbies[index].url != null &&
+                                                    hobbies[index]
+                                                        .url
+                                                        .isNotEmpty
+                                                ? NetworkImage(
+                                                    hobbies[index].url)
+                                                : NetworkImage(
+                                                    'https://1.bp.blogspot.com/-CzmfcShGRa4/Wbzy08PDu9I/AAAAAAAADKA/yin4j9C-ZlUpoUlKQKcgjYCHGyD8Wz0wwCLcBGAs/s1600/astronomi.jpg'),
+                                          ),
                                           borderRadius:
                                               BorderRadiusDirectional.circular(
                                                   15)),
                                       child: Center(
                                         child: Container(
-                                          
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              3 /
+                                              7,
+                                          height: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  3 /
+                                                  7 -
+                                              25,
+                                          decoration: BoxDecoration(
+                                              color: UserHobbies
+                                                      .selectedList[index]
+                                                  ? Color.fromARGB(
+                                                          255, 161, 87, 226)
+                                                      .withAlpha(255).withOpacity(0.6)
+                                                  : Color.fromARGB(
+                                                          255, 161, 87, 226)
+                                                      .withAlpha(230).withOpacity(0.6),
+                                              borderRadius:
+                                                  BorderRadiusDirectional
+                                                      .circular(15)),
                                           child: Column(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
@@ -118,13 +148,20 @@ class _HobbySelectState extends State<HobbySelect>
                                                     textAlign: TextAlign.center,
                                                     style: TextStyle(
                                                         color: Colors.white,
-                                                        fontSize: 16,
+                                                        fontSize: 17,
                                                         fontWeight:
                                                             FontWeight.bold)),
                                               ),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
                                               UserHobbies.selectedList[index]
-                                                  ? Icon(Icons
-                                                      .check_circle_outline)
+                                                  ? Icon(
+                                                      Icons
+                                                          .check_circle_outline,
+                                                      color: Colors.white,
+                                                      size: 35,
+                                                    )
                                                   : SizedBox(
                                                       height: 0.1,
                                                     )
@@ -143,12 +180,13 @@ class _HobbySelectState extends State<HobbySelect>
                         onPressed: () {
                           int index = 0;
                           for (bool item in UserHobbies.selectedList) {
-                            if(item){
+                            if (item) {
+                              print('${index+1}. hobby eklendi');
                               Data.setHobbyMaters(hobbies[index].hobbyName);
                             }
                             index++;
                           }
-                          Navigator.pushNamed(context, '/');
+                          // Navigator.pushNamed(context, '/');
                         },
                         color: Color.fromARGB(255, 161, 87, 226),
                         shape: RoundedRectangleBorder(

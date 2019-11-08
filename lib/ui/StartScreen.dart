@@ -1,8 +1,6 @@
-import 'dart:async';
 import 'package:connectivity/connectivity.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:hobby_mates/utils/MaskedTextBox.dart';
 import 'package:hobby_mates/utils/utils.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 

@@ -5,7 +5,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hobby_mates/ui/phoneVerificationCode.dart';
 import 'package:hobby_mates/utils/MaskedTextBox.dart';
-import 'package:hobby_mates/widgets/boxfield.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 class PhoneVerification extends StatefulWidget {

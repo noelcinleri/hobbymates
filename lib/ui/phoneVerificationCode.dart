@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:hobby_mates/ui/profile.dart';
 import 'package:hobby_mates/utils/MaskedTextBox.dart';
 import 'package:hobby_mates/utils/shared.dart';
-import 'package:hobby_mates/widgets/boxfield.dart';
 
 class PhoneCodeEnter extends StatefulWidget {
   final actualCode;

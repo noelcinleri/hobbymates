@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hobby_mates/ui/StartScreen.dart';
-import 'package:hobby_mates/ui/chats.dart';
 import 'package:hobby_mates/ui/conversation.dart';
 import 'package:hobby_mates/ui/hobbySelect.dart';
 import 'package:hobby_mates/ui/phoneVerificationCode.dart';
