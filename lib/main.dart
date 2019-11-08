@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hobby_mates/ui/StartScreen.dart';
 import 'package:hobby_mates/ui/chats.dart';
 import 'package:hobby_mates/ui/conversation.dart';
 import 'package:hobby_mates/ui/phoneVerificationCode.dart';
@@ -17,11 +18,12 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       routes: {
-        '/':(context)=>Conversation(uid: 'Jspv3d8hINaj5NGmMJFF99UOCyL2',),
-        // '/':(context)=>PhoneVerification(),
+        // '/':(context)=>Conversation(uid: 'Jspv3d8hINaj5NGmMJFF99UOCyL2',),
+        '/':(context)=>StartScreen(),
+        '/phone':(context)=>PhoneVerification(),
         '/code':(context)=>PhoneCodeEnter(),
         '/profil':(context)=>ProfilePage(),
-        '/chat':(context)=>Conversation(uid: 'Jspv3d8hINaj5NGmMJFF99UOCyL2',),
+        '/chat':(context)=>Conversation(),
       },
       // home: PhoneVerification(),
     );

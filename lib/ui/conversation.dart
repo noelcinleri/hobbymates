@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hobby_mates/utils/data.dart';
@@ -14,10 +15,18 @@ class Conversation extends StatefulWidget {
 }
 
 class _ConversationState extends State<Conversation> {
+  String uid;
   String roomId = '1';
   static Random random = Random();
   TextEditingController controller = TextEditingController();
   String name = names[random.nextInt(10)];
+  @override
+  void initState() {
+    FirebaseAuth.instance.currentUser().then((e){
+      uid = e.uid;
+    });
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
@@ -42,7 +51,7 @@ class _ConversationState extends State<Conversation> {
           List msgDataTemp = snap.data.documents;
           List msgData = List();
           List<String> names= List();
-          
+
           for (var i = 0; i < msgDataTemp.length; i++) {
             names.add(msgDataTemp[i].documentID);
           }
@@ -137,7 +146,7 @@ class _ConversationState extends State<Conversation> {
                           time: msg["time"],
                           type: msg['type'],
                           replyText: msg["replyText"],
-                          isMe: msg['uid'] == widget.uid ? true : false,
+                          isMe: msg['uid'] == uid ? true : false,
                           isGroup: msg['isGroup'],
                           isReply: msg['isReply'],
                           replyName: name,
@@ -251,7 +260,7 @@ class _ConversationState extends State<Conversation> {
                                     "type": 'text',
                                     "replyText": 'boş',
                                     "isMe": true,
-                                    "uid": widget.uid,
+                                    "uid": uid,
                                     "isGroup": false,
                                     "isReply": false,
                                   }).then((e){

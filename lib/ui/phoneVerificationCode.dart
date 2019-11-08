@@ -20,8 +20,9 @@ class _PhoneCodeEnterState extends State<PhoneCodeEnter> {
   String status = '';
   static String actualCode;
   String errorMessage;
-
+  
   void signInWithPhoneNumber(String smsCode) async {
+    
     print('actualCode => ${widget.actualCode}');
     var _authCredential = PhoneAuthProvider.getCredential(
         // verificationId: "AM5PThCiQTTYmW-VO0z1KzAa1h1081DUzQRLH-4YAQi0nPT79E-4WKiAfkkPWN9Xkgbmvq6lfsWuP40NW70yh4T0-aVGRpQ0sPq2M3m4TVIE3fJZ3Wyq1Ua--lEpdXk8Ok5Yik9EPm4A", smsCode: smsCode.toString());

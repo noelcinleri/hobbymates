@@ -181,7 +181,7 @@ class MapScreenState extends State<ProfilePage>
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 new CircleAvatar(
-                                  backgroundColor: Color(0xFF3A9C75),
+                                  backgroundColor: Color.fromARGB(255, 161, 87, 226),
                                   radius: 25.0,
                                   child: new Icon(
                                     Icons.camera_alt,
@@ -514,7 +514,7 @@ class MapScreenState extends State<ProfilePage>
   Widget _getEditIcon() {
     return new GestureDetector(
       child: new CircleAvatar(
-        backgroundColor: Color(0xFF3A9C75),
+        backgroundColor: Color.fromARGB(255, 161, 87, 226),
         radius: 14.0,
         child: new Icon(
           Icons.edit,

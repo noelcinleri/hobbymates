@@ -128,6 +128,7 @@ class _PhoneVerificationState extends State<PhoneVerification> {
     }
   }
   Timer t;
+
   @override
   void initState() {
     connectionCheck();
