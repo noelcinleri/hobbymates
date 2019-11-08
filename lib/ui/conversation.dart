@@ -15,6 +15,7 @@ class Conversation extends StatefulWidget {
 }
 
 class _ConversationState extends State<Conversation> {
+  ScrollController scrollController = ScrollController();
   String uid;
   String roomId = '1';
   static Random random = Random();
@@ -22,11 +23,12 @@ class _ConversationState extends State<Conversation> {
   String name = names[random.nextInt(10)];
   @override
   void initState() {
-    FirebaseAuth.instance.currentUser().then((e){
+    FirebaseAuth.instance.currentUser().then((e) {
       uid = e.uid;
     });
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
@@ -50,16 +52,16 @@ class _ConversationState extends State<Conversation> {
           // a.documentID
           List msgDataTemp = snap.data.documents;
           List msgData = List();
-          List<String> names= List();
+          List<String> names = List();
 
           for (var i = 0; i < msgDataTemp.length; i++) {
             names.add(msgDataTemp[i].documentID);
           }
           for (var i = 0; i < msgDataTemp.length; i++) {
-            if(names.contains(i.toString())){
+            if (names.contains(i.toString())) {
               int index = 0;
               for (var j = 0; j < msgDataTemp.length; j++) {
-                if(i.toString() == names[j]){
+                if (i.toString() == names[j]) {
                   index = j;
                   names[j] = '---';
                 }
@@ -69,7 +71,6 @@ class _ConversationState extends State<Conversation> {
           }
           return Scaffold(
             appBar: AppBar(
-              
               backgroundColor: Color.fromARGB(255, 161, 87, 226),
               leading: IconButton(
                 icon: Icon(
@@ -132,7 +133,7 @@ class _ConversationState extends State<Conversation> {
                   SizedBox(height: 10),
                   Flexible(
                     child: ListView.builder(
-                      
+                      controller: scrollController,
                       padding: EdgeInsets.symmetric(horizontal: 10),
                       itemCount: msgData.length,
                       reverse: false,
@@ -160,17 +161,17 @@ class _ConversationState extends State<Conversation> {
 //                height: 140,
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
-                  stops: [
-                    0,
-                    1,
-                    1,
-                  ],
-                  colors: [
-                    Color.fromARGB(255, 118, 143, 226),
-                    Color.fromARGB(255, 161, 87, 226),
-                    Color.fromARGB(255, 0, 0, 0),
-                  ],
-                ),
+                          stops: [
+                            0,
+                            1,
+                            1,
+                          ],
+                          colors: [
+                            Color.fromARGB(255, 118, 143, 226),
+                            Color.fromARGB(255, 161, 87, 226),
+                            Color.fromARGB(255, 0, 0, 0),
+                          ],
+                        ),
                         boxShadow: [
                           BoxShadow(
                             color: Colors.grey[500],
@@ -201,35 +202,46 @@ class _ConversationState extends State<Conversation> {
                                   fontSize: 15.0,
                                   color: Colors.white,
                                 ),
+                                onTap: () {
+                                  setState(() {
+                                    scrollController.jumpTo(scrollController
+                                        .position.maxScrollExtent);
+                                  });
+                                },
                                 decoration: InputDecoration(
                                   contentPadding: EdgeInsets.all(10.0),
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(5.0),
                                     borderSide: BorderSide(
-                                      color:  Color.fromARGB(255, 118, 143, 226).withOpacity(0),
+                                      color: Color.fromARGB(255, 118, 143, 226)
+                                          .withOpacity(0),
                                     ),
                                   ),
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Color.fromARGB(255, 118, 143, 226).withOpacity(0),
+                                      color: Color.fromARGB(255, 118, 143, 226)
+                                          .withOpacity(0),
                                     ),
                                     borderRadius: BorderRadius.circular(5.0),
                                   ),
                                   disabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Color.fromARGB(255, 118, 143, 226).withOpacity(0),
+                                      color: Color.fromARGB(255, 118, 143, 226)
+                                          .withOpacity(0),
                                     ),
                                     borderRadius: BorderRadius.circular(5.0),
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Color.fromARGB(255, 118, 143, 226).withOpacity(0),
+                                      color: Color.fromARGB(255, 118, 143, 226)
+                                          .withOpacity(0),
                                     ),
                                     borderRadius: BorderRadius.circular(5.0),
                                   ),
                                   focusedErrorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Color.fromARGB(255, 118, 143, 226).withOpacity(0),
+                                      color: Color.fromARGB(255, 118, 143, 226)
+                                          .withOpacity(0),
                                     ),
                                     borderRadius: BorderRadius.circular(5.0),
                                   ),
@@ -247,28 +259,30 @@ class _ConversationState extends State<Conversation> {
                                   color: Colors.white,
                                 ),
                                 onPressed: () {
-                                  print('len> ${msgData.length.toString()}');
-                                  Firestore.instance
-                                      .collection('rooms')
-                                      .document(roomId)
-                                      .collection('messages')
-                                      .document(msgData.length.toString())
-                                      .setData({
-                                    "username": "abdusin",
-                                    "message": controller.text,
-                                    "time": "",
-                                    "type": 'text',
-                                    "replyText": 'boş',
-                                    "isMe": true,
-                                    "uid": uid,
-                                    "isGroup": false,
-                                    "isReply": false,
-                                  }).then((e){
-                                    print('len*> ${msgData.length.toString()}');
-                                    setState(() {
-                                     controller.clear();
+                                  if (controller.text.length >= 1) {
+                                    Firestore.instance
+                                        .collection('rooms')
+                                        .document(roomId)
+                                        .collection('messages')
+                                        .document(msgData.length.toString())
+                                        .setData({
+                                      "username": "abdusin",
+                                      "message": controller.text,
+                                      "time": "",
+                                      "type": 'text',
+                                      "replyText": 'boş',
+                                      "isMe": true,
+                                      "uid": uid,
+                                      "isGroup": false,
+                                      "isReply": false,
+                                    }).then((e) {
+                                      print(
+                                          'len*> ${msgData.length.toString()}');
+                                      setState(() {
+                                        controller.clear();
+                                      });
                                     });
-                                  });
+                                  }
                                 },
                               ),
                             ),
