@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "494698816309",
+    "firebase_url": "https://hobbymates-tr.firebaseio.com",
+    "project_id": "hobbymates-tr",
+    "storage_bucket": "hobbymates-tr.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:494698816309:android:e641b98f2c08252046e27c",
+        "android_client_info": {
+          "package_name": "com.otomatto.hobbymates"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "494698816309-e3g5e9o1qd586h821igqk3gf78mfin8e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvxCuoMcXABD_fdROnHFdkNlthIuQGStw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "494698816309-e3g5e9o1qd586h821igqk3gf78mfin8e.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "494698816309-89idokaoapbkkjosbd8da6kn7g7pj9cl.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.otomatto.hobbymates"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
