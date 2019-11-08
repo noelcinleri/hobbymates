@@ -54,7 +54,6 @@ class _StartScreenState extends State<StartScreen> {
   @override
   void initState() {
     connectionCheck();
-    firebaseAuth.signOut();
     firebaseAuth.currentUser().then((user){
       uidBool = true;
       if(user != null){
