@@ -101,7 +101,7 @@ class _StartScreenState extends State<StartScreen> {
                         if(uid == null && uidBool){
                           Navigator.pushNamedAndRemoveUntil(context, '/phone', (Route<dynamic> r) =>false);
                         }else if(uid != null){
-                          Navigator.pushNamedAndRemoveUntil(context, '/hobby', (Route<dynamic> r) =>false);
+                          Navigator.pushNamedAndRemoveUntil(context, '/main', (Route<dynamic> r) =>false);
                         }
                       },
                       color: Colors.white,
