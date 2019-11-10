@@ -14,6 +14,7 @@ class _HobbySelectState extends State<HobbySelect>
   List<FireStoreHobby> hobbies = List();
   List<Widget> hobbiesWidget = List();
   bool loading = true;
+  
   getDatas() {
     Firestore.instance
         .collection('hobbies')
@@ -186,7 +187,7 @@ class _HobbySelectState extends State<HobbySelect>
                             }
                             index++;
                           }
-                          // Navigator.pushNamed(context, '/');
+                          Navigator.pushNamedAndRemoveUntil(context, '/main',(Route<dynamic> r)=>false);
                         },
                         color: Color.fromARGB(255, 161, 87, 226),
                         shape: RoundedRectangleBorder(

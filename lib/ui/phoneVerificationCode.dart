@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:hobby_mates/ui/profile.dart';
 import 'package:hobby_mates/utils/MaskedTextBox.dart';
 import 'package:hobby_mates/utils/shared.dart';
+import 'package:hobby_mates/utils/utils.dart';
 
 class PhoneCodeEnter extends StatefulWidget {
   final actualCode;
@@ -34,11 +34,10 @@ class _PhoneCodeEnterState extends State<PhoneCodeEnter> {
     }).then((user) {
       setState(() {
         SharedData.setDataTypeString('user', '${user.user.uid}').then((e) {
-          Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (context) => ProfilePage()),
+          Navigator.of(context).pushNamedAndRemoveUntil('/profil',
               (Route<dynamic> route) => false);
         });
-
+        Uid.uid = user.user.uid;
         print('uid>  ${user.user.uid}');
       });
     });

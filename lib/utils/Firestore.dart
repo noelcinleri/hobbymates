@@ -6,8 +6,9 @@ class FirestoreData {
   String adSoyad;
   String mail;
   String numara;
+  bool isMale;
   int yas;
-  List<String> rooms = List();
+  List rooms = List();
   FirestoreData();
 
   FirestoreData.fromMap(Map<String, dynamic> map) {
@@ -17,6 +18,7 @@ class FirestoreData {
     this.numara = map['numara'];
     this.yas = map['yas'];
     this.rooms = map['rooms'];
+    this.isMale = map['isMale'];
   }
 }
 
@@ -60,6 +62,7 @@ class Data {
         dt.adSoyad = ds.data['adSoyad'];
         dt.mail = ds.data['mail'];
         dt.numara = ds.data['yas'];
+        dt.isMale = ds.data['isMale'];
       };
 
       Firestore.instance.runTransaction(createTransaction).then((mapData) {
@@ -75,8 +78,7 @@ class Data {
     }
   }
 
-  static createUser(String id, String userName, String adSoyad, String mail,
-      String numara, yas, rooms) async {
+  static createUser(String id, String userName, String adSoyad, String mail,yas, rooms,bool isMale) async {
     final TransactionHandler createTransaction = (Transaction tx) async {
       final DocumentSnapshot ds =
           await tx.get(db.collection('users').document(id));
@@ -88,7 +90,7 @@ class Data {
       dataMap['yas'] = yas;
       dataMap['rooms'] = rooms;
       dataMap['hobbies'] = [];
-      dataMap['numara'] = numara;
+      dataMap['isMale'] = isMale;
 
       await tx.set(ds.reference, dataMap);
       return dataMap;
@@ -121,9 +123,7 @@ class Data {
   static setHobbyMaters(hobbyName) async {
     db.collection('hobbies').document(hobbyName).get().then((e) {
       var a;
-      int id = e.data['hobi_ID'];
       if (e.data['hobbyMates'] != null) {
-        List ad = List();
         if (e.data['hobbyMates'].contains(Uid.uid)) {
           a = e.data['hobbyMates'];
         } else {
@@ -157,9 +157,9 @@ class Data {
         dt.userName = document['userName'];
         dt.adSoyad = document['adSoyad'];
         dt.mail = document['mail'];
-        dt.numara = document['numara'];
         dt.yas = document['yas'];
         dt.rooms = document['rooms'];
+        dt.isMale = document['isMale'];
       });
     } catch (e) {
       print("getDataByUid ERROR => ${e.toString()}");
@@ -173,9 +173,9 @@ class Data {
       dt.userName = document['userName'];
       dt.adSoyad = document['adSoyad'];
       dt.mail = document['mail'];
-      dt.numara = document['numara'];
       dt.yas = document['yas'];
       dt.rooms = document['rooms'];
+      dt.isMale = document['isMale'];
     } catch (e) {
       print("dtToFirestoreData ERROR => ${e.toString()}");
     }

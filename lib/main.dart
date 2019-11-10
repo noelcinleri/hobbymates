@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hobby_mates/ui/StartScreen.dart';
+import 'package:hobby_mates/ui/chats.dart';
 import 'package:hobby_mates/ui/conversation.dart';
 import 'package:hobby_mates/ui/hobbySelect.dart';
 import 'package:hobby_mates/ui/phoneVerificationCode.dart';
@@ -18,9 +19,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'HobbyMates',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      // theme: ThemeData(
+      //   primarySwatch: Colors.blue,
+      // ),
+       theme: new ThemeData(primaryColor: Color.fromRGBO(58, 66, 86, 1.0)),
       routes: {
         // '/':(context)=>Conversation(uid: 'Jspv3d8hINaj5NGmMJFF99UOCyL2',),
         '/':(context)=>StartScreen(),
@@ -31,6 +33,7 @@ class MyApp extends StatelessWidget {
         '/profil':(context)=>ProfilePage(),
         '/profileshow':(context)=>ProfileScreen(),
         '/chat':(context)=>Conversation(),
+        '/chatList':(context)=>Chats(),
         '/hobby':(context)=>HobbySelect(),
       },
       // home: PhoneVerification(),

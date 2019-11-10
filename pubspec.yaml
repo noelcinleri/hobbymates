@@ -20,10 +20,17 @@ dependencies:
   flutter:
     sdk: flutter
 
+  #Iconlar
   cupertino_icons: ^0.1.2
   line_icons: ^0.2.0
+  
+  #Baglantı Ayarları
   connectivity: ^0.4.5+2
+
+  #Tasarım Eklentileri
   rflutter_alert: ^1.0.3
+  gender_selection: ^0.0.8
+  page_transition: ^1.1.5
   
   #Uygulama İçi Data
   shared_preferences: ^0.5.4+3
